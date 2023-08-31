@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import './Signupsignin.css'
 
 const Signupsignin = () => {
   const [action, setAction] = useState("Register");
@@ -21,7 +22,7 @@ const Signupsignin = () => {
           </div>
 
           {action === "Register"? <div></div>: <div className='lost-password'>
-            Lost password <a href="#">Click here</a>
+            Forgot password <a href="#">Click here</a>
           </div>}
           
         </div>

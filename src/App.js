@@ -1,11 +1,11 @@
 import React from "react";
-import Signupsignin from "./components/Signupsignin";
+import Login from "./components/Admin/Login";
 
 
 function App() {
   return (
     <div className="App">
-      <Signupsignin />
+      <Login />
       
     </div>
   );
