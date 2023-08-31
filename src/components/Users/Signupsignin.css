@@ -47,13 +47,19 @@
     transition: 0.5s;
     overflow: hidden;
   }
-  
+  .input-field img{
+    margin: 0px 20px;
+
+  }
+
+
   input {
     width: 100%;
     background: transparent;
     border: 0;
     outline: 0;
     padding: 18px 15px;
+    font-size: 20px;
   }
   
   .lost-password{
@@ -86,7 +92,6 @@
     font-size: 18px;
     font-weight: 700;
     cursor: pointer;
-   
   }
   .gray {
     background: #eaeaea;

@@ -46,12 +46,20 @@ body{
     border-radius: 10px;
   }
 
+  .input-field img{
+    margin: 0px 20px;
+
+  }
+
+
   input{
+
     width: 100%;
     background: transparent;
     padding: 18px 15px;
     outline: 0;
     border: 0;
+    font-size: 20px;
 
   }
 

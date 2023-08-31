@@ -1,5 +1,7 @@
 import React from 'react'
 import './Login.css'
+import email_icon from './images/email.png'
+import password_icon from './images/password.png'
 
 const Login = () => {
   return (
@@ -9,9 +11,11 @@ const Login = () => {
         </header>
         <div className="input-group">
             <div className='input-field'>
+            <img src={email_icon}/>
             <input type="email" placeholder='Email'/>
             </div>
             <div className='input-field'>
+            <img src={password_icon}/>
             <input type="password" placeholder='Password'/>
             </div>
             <div className="lost-password">Forgot password <a href="">Click here</a></div>
