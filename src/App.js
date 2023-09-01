@@ -1,6 +1,6 @@
 import React from "react";
-import Login from "./components/Admin/Login";
-import Signupsignin from "./components/Users/Signupsignin";
+import Login from "./pages/Admin/Login";
+import Signupsignin from "./pages/Users/Signupsignin";
 
 
 function App() {
