@@ -97,8 +97,163 @@
     background: #eaeaea;
     color: #555;
   }
+
+  /* FOR THE REQUEST */
+
+  .main-request {
+    padding: 32px;
+  }
   
+  .main-request h1 {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 32px;
+  }
+
+  .main-request h4 {
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-bottom: 16px;
+
+  }
+
+  .request-container {
+    position: relative;
+    background-color: white;
+    padding: 16px ;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    transition: 0.5s;
+    cursor: pointer;
+    margin-bottom: 16px;
+    width: 50%;
+  }
+
+  .requests:hover{
+    opacity: 0.5;
+  }
+
+  .request-checkbox{
+    width: 20px;
+    height: 20px;
+    border-radius: 999px;
+    margin-right: 16px;
+    transition: 0.4s;
+    background-color: #555;
+  }
+
+  .request-text {
+    font-size: 20px;
+
+  }
+
+  .requests .delete-request{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    background-color: #AF1E2D;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    
+  }
+
+  .new-request{
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    padding: 16px;
+    color: white;
+    transform: translateX(-50%);
+    border-radius: 19px;
+    background-color: #555;
+    align-items: center;
+	  justify-content: center;
+    border: 0;
+    outline: 0;
+    font-size: 15px;
+    font-weight: 900;
+  }
+
+  .new-request:hover {
+    opacity: 0.4;
+  }
+
+  .closePopup {
+    position: absolute;
+    top: 20px;
+    right: 16px;
+    width: 15px;
+    height: 15px;
+    font-size: 16px;
+    font-weight: 900;
+    color: black;
+    cursor: pointer;
+    justify-content: center;
+    text-align: center;
+ 
+  }
+
+  .requirement-popup{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 400px;
+    background-color: white;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0px 4px 32px var(#3c00a0);
+  }
+
+  .popup-content h3{
+  color: black;
+	margin-bottom: 16px;
+	font-weight: 400;
+	text-transform: uppercase;
+  text-align: center;
+  font-weight: 700;
+    
+  }
+
+  .add-new-requirement {
+    appearance: none;
+    outline: none;
+    border: none;
+    background-color: #FFF;
+    padding: 16px;
+    border-radius: 16px;
+    width: 100%;
+    box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.2);
+    font-size: 20px;
+  }
   
+  .create-button{
+    position: relative;
+    left: 20%;
+    padding: 12px 25px;
+    border-radius: 999px;
+    background-color: #555;
+    color: white;
+    display: inline-block;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 18px;
+    margin-top: 20px;
+    text-align: center;
+    justify-content: center;
+    cursor: pointer;
+
+  }
   
   
   

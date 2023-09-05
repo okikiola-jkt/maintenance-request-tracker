@@ -3,12 +3,13 @@ import './Signupsignin.css'
 import name_icon from './images/person.png'
 import email_icon from './images/email.png'
 import password_icon from './images/password.png'
+import { Link } from "react-router-dom";
 
 const Signupsignin = () => {
   const [action, setAction] = useState("Register");
 
   return (
-    <div className="container">
+    <div name= 'home' className="container">
       <div className="header">
         <div className="title">{action}</div>
       </div>
