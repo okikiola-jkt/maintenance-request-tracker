@@ -1,7 +1,7 @@
 import React from "react";
-import './Login.css'
+import './index.css'
 
-const Adminrequest = () => {
+const AdminDashboard = () => {
   
   return (
 
@@ -24,7 +24,7 @@ const Adminrequest = () => {
 );
 }
 
-export default Adminrequest;
+export default AdminDashboard;
 
 
 

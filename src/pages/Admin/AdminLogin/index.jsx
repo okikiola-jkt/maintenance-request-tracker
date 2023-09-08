@@ -1,9 +1,9 @@
 import React from 'react'
-import './Login.css'
-import email_icon from './images/email.png'
-import password_icon from './images/password.png'
+import './index.css'
+import email_icon from '../images/email.png'
+import password_icon from '../images/password.png'
 
-const Login = () => {
+const AdminLogin = () => {
   return (
     <div className='container'>
         <header>
@@ -29,4 +29,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default AdminLogin;

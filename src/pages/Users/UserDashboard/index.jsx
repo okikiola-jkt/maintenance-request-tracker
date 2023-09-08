@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './index.css'
 
-const Request = () => {
+const UserDashboard = () => {
   
   
   return (
@@ -23,4 +23,4 @@ const Request = () => {
   )
 }
 
-export default Request
+export default UserDashboard

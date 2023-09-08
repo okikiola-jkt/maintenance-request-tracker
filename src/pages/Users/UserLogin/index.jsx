@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import './index.css'
-import name_icon from './images/person.png'
-import email_icon from './images/email.png'
-import password_icon from './images/password.png'
+import name_icon from '../images/person.png'
+import email_icon from '../images/email.png'
+import password_icon from '../images/password.png'
 import { Link } from "react-router-dom";
 
-const Signupsignin = () => {
+const UserLogin = () => {
   const [action, setAction] = useState("Register");
 
   return (
@@ -33,12 +33,12 @@ const Signupsignin = () => {
           </div>}
           
         </div>
-        <div className="submit-container">
-          <button className={action === "Log In" ? "submit gray" : "submit"}onClick={()=>{setAction("Register")}}>Register</button>
-          <button className={action === "Register" ? "submit gray" : "submit"} onClick={()=>{setAction("Log In")}}>Log In</button>
+        <div className="UserSubmit-container">
+          <button className={action === "Log In" ? "UserSubmit gray" : "UserSubmit"}onClick={()=>{setAction("Register")}}>Register</button>
+          <button className={action === "Register" ? "UserSubmit gray" : "UserSubmit"} onClick={()=>{setAction("Log In")}}>Log In</button>
         </div>
     </div>
   )
 }
 
-export default Signupsignin
+export default UserLogin

@@ -1,8 +1,9 @@
 import React from "react";
-import Login from "./pages/Admin/Login";
-import Signupsignin from "./pages/Users/Signupsignin";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom"
-import Request from "./pages/Users/request";
+import UserDashboard from "./pages/Users/UserDashboard/";
+import AdminDashboard from "./pages/Admin/AdminDashboard";
+import UserLogin from "./pages/Users/UserLogin";
+import AdminLogin from "./pages/Admin/AdminLogin";
 
 
 function App() {
@@ -10,9 +11,11 @@ function App() {
     <div>
     <Router>
       <Routes>
-        <Route path="/login" element = {<Login />}/>
-        <Route path="/user" element = {<Signupsignin />}/>
-        <Route path="/request" element = {<Request />}/>
+        <Route path="/user-login" element = {<UserLogin />}/>
+        <Route path="/admin-login" element = {<AdminLogin />}/>
+
+        <Route path="/user-dashboard" element = {<UserDashboard />}/>
+        <Route path="/admin-dashboard" element = {<AdminDashboard/>}/>
       </Routes>
 
     </Router>
