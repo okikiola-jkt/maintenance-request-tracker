@@ -1,16 +1,20 @@
 import React, { useState } from 'react'
 import './index.css'
+import { Navbar } from "../../../components/users/userNavbar";
 
 const UserDashboard = () => {
   
   
   return (
+
+   
     <div className='main-request'>
+            <Navbar/>
         <h1>Welcome user</h1>
         <h4>Your maintenace request</h4>
         <form>
         <div className='requests'>
-            <div className='request-container'>
+            <div className='request-container'> 
                 <div className="request-checkbox"></div>
                 <div className='request-text'>New request</div>
                 <div className='delete-request'>X</div>

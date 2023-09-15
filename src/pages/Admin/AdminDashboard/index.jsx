@@ -1,30 +1,19 @@
-import React from "react";
-import './index.css'
+import React, { useState } from "react";
+import { Container } from "react-bootstrap";
+import { Navbar } from "../../../components/admin/navbar";
+import { Dashboard } from "../../../components/admin/dashboard";
 
-const AdminDashboard = () => {
-  
+
+function AdminDashboard() {
   return (
+    <div>
+      <Navbar />
 
-    <div className="admin">
-   
-        <h1>Welcome Admin</h1>
-        <h5>Your maintenace request</h5>
-        <form>
-        <div className='admin-requests'>
-            <div className='admin-container'>
-                <div className="admin-checkbox"></div>
-                <div className='admin-text'>New request</div>
-                <div className='adminDelete-request'>X</div>
-            </div>
-        </div>
-     
-        <button className='adminNew-request'>Add Request</button>
-      </form>
+      <Container>
+        <Dashboard />
+      </Container>
     </div>
-);
+  );
 }
 
 export default AdminDashboard;
-
-
-
