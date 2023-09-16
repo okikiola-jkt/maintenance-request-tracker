@@ -1,29 +1,22 @@
 import React, { useState } from 'react'
+import { Container } from "react-bootstrap";
+
 import './index.css'
 import { Navbar } from "../../../components/users/userNavbar";
+import { UserDashboard2} from '../../../components/users/userDashboard';
 
 const UserDashboard = () => {
   
+ 
+    return (
+      <div>
+        <Navbar />
   
-  return (
-
+        <Container>
+          <UserDashboard2 />
+        </Container>
+      </div>
    
-    <div className='main-request'>
-            <Navbar/>
-        <h1>Welcome user</h1>
-        <h4>Your maintenace request</h4>
-        <form>
-        <div className='requests'>
-            <div className='request-container'> 
-                <div className="request-checkbox"></div>
-                <div className='request-text'>New request</div>
-                <div className='delete-request'>X</div>
-            </div>
-        </div>
-     
-        <button className='new-request'>Add Request</button>
-      </form>
-    </div>
   )
 }
 

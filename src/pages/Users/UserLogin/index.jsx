@@ -1,42 +1,93 @@
 import React, { useState } from 'react'
-import './index.css'
-import name_icon from '../images/person.png'
-import email_icon from '../images/email.png'
-import password_icon from '../images/password.png'
-import { Link } from "react-router-dom";
+import {
+  MDBContainer,
+  MDBTabs,
+  MDBTabsItem,
+  MDBTabsLink,
+  MDBTabsContent,
+  MDBTabsPane,
+  MDBBtn,
+  MDBIcon,
+  MDBInput,
+  MDBCheckbox
+} from 'mdb-react-ui-kit';
+import './index.css';
+import { Navbar } from "../../../components/users/userNavbar";
+ 
+
 
 const UserLogin = () => {
-  const [action, setAction] = useState("Register");
+  const [justifyActive, setJustifyActive] = useState('tab1');
+
+  const handleJustifyClick = (value) => {
+    if (value === justifyActive) {
+      return;
+    }
+    setJustifyActive(value);
+  };
 
   return (
-    <div name= 'home' className="container">
-      <div className="header">
-        <div className="title">{action}</div>
-      </div>
-        <div className="input-group">
-        {action === "Log In"? <div></div>: <div className="input-field">
-        <img src={name_icon}/>
-            <input type="text" placeholder="Name" />
-          </div>}
-          
-          <div className="input-field">
-          <img src={email_icon}/>
-            <input type="email" placeholder="Email"/>
+
+  
+    <div>
+      <Navbar/>
+
+    <div className=" userLogin d-flex justify-content-center align-items-center vh-100">
+    <MDBContainer className='p-3 my-5 d-flex flex-column w-25'>
+      <MDBTabs pills justify className='mb-3 d-flex flex-row justfify-content-between'>
+        <MDBTabsItem>
+          <MDBTabsLink onClick={() => handleJustifyClick('tab1')} active={justifyActive === 'tab1'}>
+              Login
+          </MDBTabsLink>
+        </MDBTabsItem>
+        <MDBTabsItem>
+          <MDBTabsLink onClick={() => handleJustifyClick('tab2')} active={justifyActive === 'tab2'}>
+            Register
+          </MDBTabsLink>
+        </MDBTabsItem>
+      </MDBTabs>
+      <MDBTabsContent>
+        <MDBTabsPane show={justifyActive === 'tab1'}>
+
+          <div className='log-in text-center'>
+            <p>Log In</p>
           </div>
-          <div className="input-field">
-          <img src={password_icon}/>
-            <input type="password" placeholder="Password"/>
+          
+          <MDBInput wrapperClass='mb-4' placeholder='Email address or username' id='form1' type='email'/>
+          <MDBInput wrapperClass='mb-4' placeholder='Password' id='form2' type='password'/>
+
+          <div className='d-flex justify-content-between mx-4 mb-4'>
+            <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Remember me'/>
+            <a href="!#">Forgot password</a>
           </div>
 
-          {action === "Register"? <div></div>: <div className='lost-password'>
-            Forgot password <a href="#">Click here</a>
-          </div>}
-          
-        </div>
-        <div className="UserSubmit-container">
-          <button className={action === "Log In" ? "UserSubmit gray" : "UserSubmit"}onClick={()=>{setAction("Register")}}>Register</button>
-          <button className={action === "Register" ? "UserSubmit gray" : "UserSubmit"} onClick={()=>{setAction("Log In")}}>Log In</button>
-        </div>
+        <MDBBtn className='mb-4 w-100'>Sign in</MDBBtn>
+          <p className='text-center'>New User? <a href="#" onClick={() => handleJustifyClick('tab2')}>
+                Register
+              </a></p>
+        </MDBTabsPane>
+
+        <MDBTabsPane show={justifyActive === 'tab2'}>
+          <div className='sign-up text-center mb-3'>
+            <p>Sign Up</p>
+          </div>
+          <MDBInput wrapperClass='mb-4' placeholder='Name' id='form2' type='name'/>
+          <MDBInput wrapperClass='mb-4' placeholder='Username' id='form2' type='username'/>
+          <MDBInput wrapperClass='mb-4' placeholder='Email' id='form2' type='email'/>
+          <MDBInput wrapperClass='mb-4' placeholder='Password' id='form2' type='password'/>
+          <MDBInput wrapperClass='mb-4' placeholder='Repeat Password' id='form2' type='password'/>
+
+          <div className='d-flex justify-content-center mx-4 mb-4'>
+            <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='I have read and agree to the terms'/>
+          </div>
+
+          <MDBBtn className='mb-4 w-100'>Sign Up</MDBBtn>
+        </MDBTabsPane>
+        
+      </MDBTabsContent>
+
+    </MDBContainer>
+    </div>
     </div>
   )
 }

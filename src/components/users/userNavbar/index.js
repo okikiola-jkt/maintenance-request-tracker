@@ -1,20 +1,22 @@
 import React from "react";
-import { Navbar as uNavbar, Container} from 'react-bootstrap';
+import { Navbar as uNavbar, Container, Nav} from 'react-bootstrap';
 
 
 
 export const Navbar = () => {
     return (
-        <useNavbar className="bg-body-tertiary">
-        <Container >
-            <uNavbar.Brand href="#home">User Dashboard</uNavbar.Brand>
-            <uNavbar.Toggle />
-                <uNavbar.Collapse className="justify-content-end">
-                    <uNavbar.Text>
-                        Signed in as: <a href="#login">Mark Otto</a>
-                    </uNavbar.Text>
+
+        <uNavbar expand="lg" className="bg-body-tertiary">
+            <Container className="my-4">
+                <uNavbar.Brand href="#home">Maintenance Request</uNavbar.Brand>
+
+                <uNavbar.Toggle aria-controls="basic-navbar-nav" />
+                <uNavbar.Collapse id="basic-navbar-nav">
+                <Nav className="me-auto">
+                 
+                </Nav>
                 </uNavbar.Collapse>
-        </Container>
-    </useNavbar>
+            </Container>
+        </uNavbar>
     );
 };
