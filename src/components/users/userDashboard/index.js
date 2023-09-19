@@ -4,6 +4,8 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Table from 'react-bootstrap/Table';
+import Offcanvas from 'react-bootstrap/Offcanvas';
+
 
 
 
@@ -15,6 +17,11 @@ export const UserDashboard2 = () => {
     const handleClose = ()=> setShow(false);
     const handleShow = () => setShow(true);
 
+    const [showRequest, setShowRequest] = useState(false);
+    const handleCloseRequest = ()=> setShowRequest(false);
+    const handleShowRequest = () => setShowRequest(true);
+
+
     return (
         <Container>
             <Nav variant="tabs" defaultActiveKey={0} activeKey={navKey}>
@@ -22,7 +29,13 @@ export const UserDashboard2 = () => {
                     <Nav.Link eventKey={0} onClick={() => setNavKey(0)}>New Request</Nav.Link>
                 </Nav.Item>
                 <Nav.Item key={1}>
-                    <Nav.Link eventKey={1} onClick={() => setNavKey(1)}>Completed Request</Nav.Link>
+                    <Nav.Link eventKey={1} onClick={() => setNavKey(1)}>Accepted Request</Nav.Link>
+                </Nav.Item>
+                <Nav.Item key={1}>
+                    <Nav.Link eventKey={2} onClick={() => setNavKey(2)}>Rejected Request</Nav.Link>
+                </Nav.Item>
+                <Nav.Item key={1}>
+                    <Nav.Link eventKey={3} onClick={() => setNavKey(3)}>Completed Request</Nav.Link>
                 </Nav.Item>
             </Nav>
 
@@ -30,9 +43,11 @@ export const UserDashboard2 = () => {
                 <div>
                     <Table striped bordered hover>
                         <thead>
+                            
                             <tr>
-                                <th>#</th>
+                                <th>ID.</th>
                                 <th>Request</th>
+                            
                             </tr>
                         </thead>
                         <tbody>
@@ -40,13 +55,32 @@ export const UserDashboard2 = () => {
                                 <tr key={index}>
                                     <td>{index + 1}</td>
                                     <td>{request}</td>
+                                    
+                                    <div className="d-flex justify-content-center align-items-end">
+                                    <Button className="" variant="primary" onClick={handleShowRequest}>
+                                        View
+                                    </Button>
+                                    <Offcanvas show={showRequest} onHide={handleCloseRequest}>
+                                    <Offcanvas.Header closeButton>
+                                    <Offcanvas.Title>Request</Offcanvas.Title>
+                                    </Offcanvas.Header>
+                                    <Offcanvas.Body>
+                                        <div>{request}</div>
+                                    </Offcanvas.Body>
+                                </Offcanvas>
+                                </div>
                                 </tr>
                             ))}
+                    
                         </tbody>
+                      
                     </Table>
+                   
                 </div>
             )}
-            { navKey == 1 && <p>Completed</p> }
+            { navKey == 1 && <p>Accepted</p> }
+            { navKey == 2 && <p>Rejected</p> }
+            { navKey == 3 && <p>Completed</p> }
 
             <div className="d-flex justify-content-center align-items-end">
             <Button variant="primary" onClick={handleShow}>
