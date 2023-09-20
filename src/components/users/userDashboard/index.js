@@ -26,7 +26,7 @@ export const UserDashboard2 = () => {
         <Container>
             <Nav variant="tabs" defaultActiveKey={0} activeKey={navKey}>
                 <Nav.Item key={0}>
-                    <Nav.Link eventKey={0} onClick={() => setNavKey(0)}>New Request</Nav.Link>
+                    <Nav.Link eventKey={0} onClick={() => setNavKey(0)}>In-Progress</Nav.Link>
                 </Nav.Item>
                 <Nav.Item key={1}>
                     <Nav.Link eventKey={1} onClick={() => setNavKey(1)}>Accepted Request</Nav.Link>
