@@ -1,13 +1,9 @@
 import React from "react";
 import { Navbar as uNavbar, Container, Nav, Col, Row} from 'react-bootstrap';
-import { useLocation } from 'react-router-dom';
-
-
 
 
 export const Navbar = () => {
-    const location = useLocation();
-    const userDashboardPage = location.pathname === '/user-dashboard';
+    let userToken = localStorage.getItem('userToken');
 
     return (
 
@@ -17,9 +13,15 @@ export const Navbar = () => {
                 <Col className="align-items-center">
                     <uNavbar.Brand href="#home">Maintenance Request</uNavbar.Brand>
                 </Col>
-                {userDashboardPage && (
+                {userToken && (
                 <Col className="d-flex justify-content-end align-items-center">
-                    <uNavbar.Brand href="/user-login">Log out</uNavbar.Brand>
+                    <uNavbar.Brand href="/user-login" onClick={() => {
+                            localStorage.removeItem('userToken');
+                        }
+                        }
+                    >
+                        Log out
+                    </uNavbar.Brand>
                 </Col>
                 )}
                 </Row>
