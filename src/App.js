@@ -5,23 +5,26 @@ import AdminDashboard from "./pages/Admin/AdminDashboard";
 import UserLogin from "./pages/Users/UserLogin";
 import AdminLogin from "./pages/Admin/AdminLogin";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Toaster } from 'react-hot-toast';
 
 
 function App() {
   return (
     <div>
-    <Router>
-      <Routes>
-        {/* user routes */}
-        <Route path="/user-login" element = {<UserLogin />}/>
-        <Route path="/user-dashboard" element = {<UserDashboard />}/>
+      <Toaster />
 
-        {/* admin routes */}
-        <Route path="/admin-login" element = {<AdminLogin />}/>
-        <Route path="/admin-dashboard" element = {<AdminDashboard/>}/>
-      </Routes>
+      <Router>
+        <Routes>
+          {/* user routes */}
+          <Route path="/user-login" element = {<UserLogin />}/>
+          <Route path="/user-dashboard" element = {<UserDashboard />}/>
 
-    </Router>
+          {/* admin routes */}
+          <Route path="/admin-login" element = {<AdminLogin />}/>
+          <Route path="/admin-dashboard" element = {<AdminDashboard/>}/>
+        </Routes>
+
+      </Router>
     
       
     </div>
