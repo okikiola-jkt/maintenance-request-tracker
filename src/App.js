@@ -6,6 +6,7 @@ import UserLogin from "./pages/Users/UserLogin";
 import AdminLogin from "./pages/Admin/AdminLogin";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Toaster } from 'react-hot-toast';
+import UserSignup from "./pages/Users/UserLogin/userSignup";
 
 
 function App() {
@@ -18,6 +19,8 @@ function App() {
           {/* user routes */}
           <Route path="/user-login" element = {<UserLogin />}/>
           <Route path="/user-dashboard" element = {<UserDashboard />}/>
+          <Route path="/user-signup" element = {<UserSignup />}/>
+
 
           {/* admin routes */}
           <Route path="/admin-login" element = {<AdminLogin />}/>
