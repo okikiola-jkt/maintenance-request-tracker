@@ -22,6 +22,12 @@ import { InfinitySpin } from 'react-loader-spinner'
 
 const UserLogin = () => {
   const [justifyActive, setJustifyActive] = useState('tab1');
+  const [signUpData, setSignupData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    repeatPassword: ''
+  })
   const [loginData, setLoginData] = useState({
     email: '',
     password: ''
@@ -34,14 +40,54 @@ const UserLogin = () => {
       return;
     }
     setJustifyActive(value);
+};
+
+  const userSignup = async (event) => {
+    try{
+      
+      event.preventDefault();
+      setLoading(true);
+
+      if (signUpData.password !== signUpData.repeatPassword) {
+        toast.error('Passwords do not match.');
+        setLoading(false);
+        return;
+      }
+
+      const signupEndpoint = process.env.REACT_APP_BACKEND_URL_USERSIGNUP;
+      const response = await axios.post(signupEndpoint, {
+        name: signUpData.name,
+        email: signUpData.email, 
+        password: signUpData.password
+      });
+
+      if (response.status === 201, response.data.token) {
+        localStorage.setItem('userToken', response.data.token);
+        navigate('/user-dashboard')
+        toast.success('Signup Successful!');
+      } else {
+        const data = await response.json();
+        toast.error('Signup failed. Please check your input.');
+        setLoading(false);
+      }
+    } catch (error) {
+      const errorData = await error.response.data.message;
+      toast.error(errorData);
+      setLoading(false);
+  }
+
   };
+  const handleSignUpInputChange = (event) => {
+    const { name, value } = event.target;
+    setSignupData({ ...signUpData, [name]: value });
+  }
 
   const loginUser = async (event) => {
     try {
       event.preventDefault();
       setLoading(true);
 
-      const loginEndpoint = process.env.REACT_APP_BACKEND_URL;
+      const loginEndpoint = process.env.REACT_APP_BACKEND_URL_USERLOGIN;
       const response = await axios.post(loginEndpoint, loginData);
 
       if (response.status === 200 && response.data.token) {
@@ -71,6 +117,7 @@ const UserLogin = () => {
     });
   }
 
+  
 
 
   return (
@@ -135,17 +182,49 @@ const UserLogin = () => {
               <div className='sign-up text-center mb-3'>
                 <p>Sign Up</p>
               </div>
-              <MDBInput wrapperClass='mb-4' placeholder='Name' id='form2' type='name'/>
-              <MDBInput wrapperClass='mb-4' placeholder='Username' id='form2' type='username'/>
-              <MDBInput wrapperClass='mb-4' placeholder='Email' id='form2' type='email'/>
-              <MDBInput wrapperClass='mb-4' placeholder='Password' id='form2' type='password'/>
-              <MDBInput wrapperClass='mb-4' placeholder='Repeat Password' id='form2' type='password'/>
 
+              <form>
+                <MDBInput 
+                wrapperClass='mb-4' 
+                placeholder='Name' 
+                id='form3' 
+                type='name'
+                name='text'
+                onChange = {handleSignUpInputChange}
+                />
+
+                <MDBInput 
+                wrapperClass='mb-4' 
+                placeholder='Email' 
+                id='form4' 
+                type='email'
+                name= 'email'
+                onChange = {handleSignUpInputChange}
+                />
+
+                <MDBInput 
+                wrapperClass='mb-4' 
+                placeholder='Password' 
+                id='form5' 
+                type='password'
+                name= 'password'
+                onChange = {handleSignUpInputChange}
+                />
+
+                <MDBInput 
+                wrapperClass='mb-4' 
+                placeholder='Repeat Password' 
+                id='form6' 
+                type='password'
+                name= 'repeatPassword'
+                onChange = {handleSignUpInputChange}
+                />
+              </form>
               <div className='d-flex justify-content-center mx-4 mb-4'>
                 <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='I have read and agree to the terms'/>
               </div>
 
-              <MDBBtn className='mb-4 w-100'>Sign Up</MDBBtn>
+              <MDBBtn className='mb-4 w-100' noRipple onClick={userSignup}>Sign Up</MDBBtn>
             </MDBTabsPane>
             
           </MDBTabsContent>
