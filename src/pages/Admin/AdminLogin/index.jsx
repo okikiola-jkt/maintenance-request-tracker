@@ -25,26 +25,18 @@ const AdminLogin = () => {
   const loginAdmin = async (event) => {
     try {
       event.preventDefault();
-      setLoading(false);
+      setLoading(true);
 
       const adminLoginEndpoint = process.env.REACT_APP_BACKEND_URL_ADMINSIGNIN;
       const response = await axios.post(adminLoginEndpoint, adminLoginData);
-
-      console.log(response)
       
       if (response.status === 200 && response.data.token) {
         localStorage.setItem('adminToken', response.data.token);
         navigate('/admin-dashboard');
         toast.success('Login Successful!');
         setLoading(false);
-      } else {
-        await response.json();
-        toast.error('Login failed. Please check your credentials.');
-        setLoading(false);
       } 
     } catch (error) {
-
-      console.log(error.message)
       const errorData =  error.response.data.message;
       toast.error(errorData);
       setLoading(false);
