@@ -35,29 +35,17 @@ const UserLogin = () => {
 
       callLoginUser(loginData, {
         onSuccess: (data) => {
-          console.log('>>>>> data', data);
+          localStorage.setItem('userToken', data.token);
+          navigate('/user-dashboard');
+          toast.success('Login Successful!');
+          setLoading(false);
         },
         onError: (error) => {
-          console.log('>>>> error', error);
-          toast.error('Login failed.');
+          toast.error(error.response.data.message);
           setLoading(false);
         }
       });
 
-      // const loginEndpoint = process.env.REACT_APP_BACKEND_URL_USERLOGIN;
-      // const response = await axios.post(loginEndpoint, loginData);
-      //
-      // if (response.status === 200 && response.data.token) {
-      //
-      //   localStorage.setItem('userToken', response.data.token);
-      //   navigate('/user-dashboard');
-      //   toast.success('Login Successful!');
-      //   setLoading(false);
-      // } else {
-      //   await response.json();
-      //   toast.error('Login failed. Please check your credentials.');
-      //   setLoading(false);
-      // }
     } catch (error) {
       const errorData = await error.response.data.message;
       toast.error(errorData);
