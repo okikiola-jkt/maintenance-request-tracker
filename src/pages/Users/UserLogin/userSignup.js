@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import toast from 'react-hot-toast';
 import {
   MDBContainer,
@@ -14,6 +13,7 @@ import {
 import './index.css';
 import { Navbar } from "../../../components/users/userNavbar";
 import { InfinitySpin } from 'react-loader-spinner';
+import { useUserSignup } from '../../../hooks/mutations/useUserSignup';
 
 const UserSignup = () => {
   const [signUpData, setSignupData] = useState({
@@ -22,9 +22,9 @@ const UserSignup = () => {
     password: '',
     repeatPassword: '',
   });
-
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const {mutate: callSignupUser } = useUserSignup();
 
   const handleSignUpInputChange = (event) => {
     const { name, value } = event.target;
@@ -43,21 +43,18 @@ const UserSignup = () => {
         return;
       }
 
-      const signupEndpoint = process.env.REACT_APP_BACKEND_URL_USERSIGNUP;
-      const response = await axios.post(signupEndpoint, {
-        name: signUpData.name,
-        email: signUpData.email, 
-        password: signUpData.password
-      });
-
-      if (response.status === 201 && response.data.token) {
-        localStorage.setItem('userToken', response.data.token);
-        navigate('/user-dashboard');
-        toast.success('Signup Successful!');
-      } else {
-        toast.error('Signup failed. Please check your input.');
-        setLoading(false);
-      }
+      callSignupUser(signUpData, {
+        onSuccess: (data) => {
+          localStorage.setItem('userToken', data.token);
+          navigate('/user-dashboard');
+          toast.success('Signup Successful!');
+        },
+        onError: (error) => {
+          toast.error('Signup failed. Please check your input.');
+          setLoading(false);
+        }
+      })
+     
     } catch (error) {
       const errorData = error.response.data.message;
       toast.error(errorData);
