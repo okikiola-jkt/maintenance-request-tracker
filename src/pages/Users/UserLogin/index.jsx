@@ -16,8 +16,7 @@ import { Navbar } from "../../../components/users/userNavbar";
 import axios from 'axios'; 
 import toast from 'react-hot-toast';
 import { InfinitySpin } from 'react-loader-spinner';
-
- 
+import { useUserLogin } from "../../../hooks/mutations/useUserLogin";
 
 
 const UserLogin = () => {  
@@ -27,26 +26,38 @@ const UserLogin = () => {
   });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { mutate: callLoginUser } = useUserLogin();
   
   const loginUser = async (event) => {
     try {
       event.preventDefault();
       setLoading(true);
 
-      const loginEndpoint = process.env.REACT_APP_BACKEND_URL_USERLOGIN;
-      const response = await axios.post(loginEndpoint, loginData);
+      callLoginUser(loginData, {
+        onSuccess: (data) => {
+          console.log('>>>>> data', data);
+        },
+        onError: (error) => {
+          console.log('>>>> error', error);
+          toast.error('Login failed.');
+          setLoading(false);
+        }
+      });
 
-      if (response.status === 200 && response.data.token) {
-  
-        localStorage.setItem('userToken', response.data.token);
-        navigate('/user-dashboard');
-        toast.success('Login Successful!');
-        setLoading(false);
-      } else {
-        await response.json();
-        toast.error('Login failed. Please check your credentials.');
-        setLoading(false);
-      }
+      // const loginEndpoint = process.env.REACT_APP_BACKEND_URL_USERLOGIN;
+      // const response = await axios.post(loginEndpoint, loginData);
+      //
+      // if (response.status === 200 && response.data.token) {
+      //
+      //   localStorage.setItem('userToken', response.data.token);
+      //   navigate('/user-dashboard');
+      //   toast.success('Login Successful!');
+      //   setLoading(false);
+      // } else {
+      //   await response.json();
+      //   toast.error('Login failed. Please check your credentials.');
+      //   setLoading(false);
+      // }
     } catch (error) {
       const errorData = await error.response.data.message;
       toast.error(errorData);
