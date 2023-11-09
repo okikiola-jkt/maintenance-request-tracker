@@ -11,6 +11,8 @@ import axios from 'axios';
 import { Navbar } from "../../../components/admin/navbar";
 import { InfinitySpin } from 'react-loader-spinner';
 import toast from 'react-hot-toast';
+import { useAdminLogin } from "../../../hooks/mutations/useAdminLogin";
+
 
 
 
@@ -21,21 +23,26 @@ const AdminLogin = () => {
   });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { mutate: callAdminLogin} = useAdminLogin()
 
   const loginAdmin = async (event) => {
     try {
       event.preventDefault();
       setLoading(true);
 
-      const adminLoginEndpoint = process.env.REACT_APP_BACKEND_URL_ADMINSIGNIN;
-      const response = await axios.post(adminLoginEndpoint, adminLoginData);
+      callAdminLogin(adminLoginData, {
+        onSuccess: (data) => {
+          localStorage.setItem('adminToken', data.token);
+          navigate('/admin-dashboard');
+          toast.success('Login Successful!');
+          setLoading(false);
+        },
+        onError: (error) => {
+          toast.error(error.response.data.message);
+          setLoading(false);
+        }
+      });
       
-      if (response.status === 200 && response.data.token) {
-        localStorage.setItem('adminToken', response.data.token);
-        navigate('/admin-dashboard');
-        toast.success('Login Successful!');
-        setLoading(false);
-      } 
     } catch (error) {
       const errorData =  error.response.data.message;
       toast.error(errorData);
