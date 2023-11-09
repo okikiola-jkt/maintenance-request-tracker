@@ -56,8 +56,6 @@ const UserSignup = () => {
       })
      
     } catch (error) {
-
-      console.log(error)
       const errorData = error.response.data.message;
       toast.error(errorData);
       setLoading(false);

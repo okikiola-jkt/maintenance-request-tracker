@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
 
-const UserSignup = async ({name, email, password, repeatPassword}) => {
+const UserSignup = async ({name, email, password}) => {
     const signupEndpoint = process.env.REACT_APP_BACKEND_URL + '/user/signup';
     const response = await axios.post(signupEndpoint, {
         name, email, password
