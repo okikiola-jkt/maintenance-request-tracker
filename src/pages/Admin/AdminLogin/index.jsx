@@ -13,9 +13,6 @@ import { InfinitySpin } from 'react-loader-spinner';
 import toast from 'react-hot-toast';
 import { useAdminLogin } from "../../../hooks/mutations/useAdminLogin";
 
-
-
-
 const AdminLogin = () => {
   const [adminLoginData, setAdminLoginData] = useState({
     email: '',
