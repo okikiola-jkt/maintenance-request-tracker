@@ -9,21 +9,19 @@ import toast from 'react-hot-toast';
 import { useNewUserRequest } from "../../../hooks/mutations/useNewUserRequest";
 import { useGetAllUserRequests } from "../../../hooks/mutations/useGetAllUserRequests";
 
-
-
-
 export const UserDashboard2 = () => {
     const [requestData, setRequestData] = useState({
         details: '',
       });
-
     const [navKey, setNavKey] = useState(0);
     const [currentRequest, setCurrentRequest] = useState({});
     const [addRequest, setAddRequest] = useState([]);
+    const [showRequest, setShowRequest] = useState(false);
     const [show, setShow] = useState(false);
+    const [loading, setLoading] = useState(false);
+
     const handleClose = ()=> setShow(false);
     const handleShow = () => setShow(true);
-    const [showRequest, setShowRequest] = useState(false);
     const handleCloseRequest = ()=> {
         setShowRequest(false);
         setCurrentRequest({});
@@ -32,8 +30,16 @@ export const UserDashboard2 = () => {
         setShowRequest(true)      
         setCurrentRequest(request)        
     }
+    const handleRequestInputChange = (event) => {
+        const { name, value } = event.target;
+    
+            setRequestData({
+             ...requestData,
+            [name]: value
+            });
+         }
 
-    const [loading, setLoading] = useState(false);
+    
     const { mutate: callNewRequest } = useNewUserRequest();
     const { data } = useGetAllUserRequests();
     const newUserRequest = async (event) => {
@@ -60,14 +66,6 @@ export const UserDashboard2 = () => {
         }
       };
 
-    const handleRequestInputChange = (event) => {
-    const { name, value } = event.target;
-
-        setRequestData({
-         ...requestData,
-        [name]: value
-        });
-     }
     return (
         <Container>
             <Nav variant="tabs" defaultActiveKey={0} activeKey={navKey}>
