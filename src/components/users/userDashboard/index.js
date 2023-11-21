@@ -1,5 +1,5 @@
-import React , {useState, useEffect}from "react";
-import { Nav, Container, NavItem } from "react-bootstrap";
+import React , {useState}from "react";
+import { Nav, Container } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -7,29 +7,40 @@ import Table from 'react-bootstrap/Table';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import toast from 'react-hot-toast';
 import { useNewUserRequest } from "../../../hooks/mutations/useNewUserRequest";
-
-
-
+import { useGetAllUserRequests } from "../../../hooks/mutations/useGetAllUserRequests";
 
 export const UserDashboard2 = () => {
-
-   
-
     const [requestData, setRequestData] = useState({
         details: '',
       });
-
     const [navKey, setNavKey] = useState(0);
+    const [currentRequest, setCurrentRequest] = useState({});
     const [addRequest, setAddRequest] = useState([]);
+    const [showRequest, setShowRequest] = useState(false);
     const [show, setShow] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+    const { mutate: callNewRequest } = useNewUserRequest();
+    const { data } = useGetAllUserRequests();
+
     const handleClose = ()=> setShow(false);
     const handleShow = () => setShow(true);
-    const [showRequest, setShowRequest] = useState(false);
-    const handleCloseRequest = ()=> setShowRequest(false);
-    const handleShowRequest = () => setShowRequest(true);
-    const [loading, setLoading] = useState(false);
-    const { mutate: callNewRequest } = useNewUserRequest();
-
+    const handleCloseRequest = ()=> {
+        setShowRequest(false);
+        setCurrentRequest({});
+    }
+    const handleShowRequest = (request) => {
+        setShowRequest(true)      
+        setCurrentRequest(request)        
+    }
+    const handleRequestInputChange = (event) => {
+        const { name, value } = event.target;
+    
+            setRequestData({
+             ...requestData,
+            [name]: value
+            });
+         }
     const newUserRequest = async (event) => {
         try {
           event.preventDefault();
@@ -53,17 +64,6 @@ export const UserDashboard2 = () => {
             setLoading(false);
         }
       };
-
-
-    const handleRequestInputChange = (event) => {
-    const { name, value } = event.target;
-
-        setRequestData({
-         ...requestData,
-        [name]: value
-        });
-     }
-
 
     return (
         <Container>
@@ -94,23 +94,26 @@ export const UserDashboard2 = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {addRequest.map((request, index) => (
+                            {data?.data?.map((request, index) => (
                                 <tr key={index}>
                                     <td>{index + 1}</td>
-                                    <td>{request}</td>
+                                    <td>{request.details}</td>
                                     
                                     <div className="d-flex justify-content-center align-items-end">
-                                    <Button className="" variant="primary" onClick={handleShowRequest}>
+                                    <Button className="" variant="primary" onClick={ () => handleShowRequest(request)}>
                                         View
                                     </Button>
-                                    <Offcanvas show={showRequest} onHide={handleCloseRequest}>
-                                    <Offcanvas.Header closeButton>
-                                    <Offcanvas.Title>Request</Offcanvas.Title>
-                                    </Offcanvas.Header>
-                                    <Offcanvas.Body>
-                                        <div>{request}</div>
-                                    </Offcanvas.Body>
-                                </Offcanvas>
+                                    <Offcanvas key={index}
+                                        show={showRequest} 
+                                        onHide={handleCloseRequest}
+                                    >
+                                        <Offcanvas.Header closeButton>
+                                            <Offcanvas.Title>Request</Offcanvas.Title>
+                                        </Offcanvas.Header>
+                                        <Offcanvas.Body>
+                                            <div>{currentRequest?.details}</div>
+                                        </Offcanvas.Body>
+                                    </Offcanvas>
                                 </div>
                                 </tr>
                             ))}
@@ -140,7 +143,7 @@ export const UserDashboard2 = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {addRequest.map((request, index) => (
+                            {data?.items?.map((request, index) => (
                                 <tr key={index}>
                                     <td></td>
                                     <td></td>
@@ -180,7 +183,7 @@ export const UserDashboard2 = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {addRequest.map((request, index) => (
+                            {data?.items?.map((request, index) => (
                                 <tr key={index}>
                                     <td></td>
                                     <td></td>
@@ -220,7 +223,7 @@ export const UserDashboard2 = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {addRequest.map((request, index) => (
+                            {data?.items?.map((request, index) => (
                                 <tr key={index}>
                                     <td></td>
                                     <td></td>
