@@ -20,6 +20,9 @@ export const UserDashboard2 = () => {
     const [show, setShow] = useState(false);
     const [loading, setLoading] = useState(false);
 
+    const { mutate: callNewRequest } = useNewUserRequest();
+    const { data } = useGetAllUserRequests();
+
     const handleClose = ()=> setShow(false);
     const handleShow = () => setShow(true);
     const handleCloseRequest = ()=> {
@@ -38,10 +41,6 @@ export const UserDashboard2 = () => {
             [name]: value
             });
          }
-
-    
-    const { mutate: callNewRequest } = useNewUserRequest();
-    const { data } = useGetAllUserRequests();
     const newUserRequest = async (event) => {
         try {
           event.preventDefault();
