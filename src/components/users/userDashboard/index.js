@@ -8,6 +8,7 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import toast from 'react-hot-toast';
 import { useNewUserRequest } from "../../../hooks/mutations/useNewUserRequest";
 import { useGetAllUserRequests } from "../../../hooks/mutations/useGetAllUserRequests";
+import { useDeleteRequest } from "../../../hooks/mutations/userDeleteRequest";
 
 export const UserDashboard2 = () => {
     const [requestData, setRequestData] = useState({
@@ -21,7 +22,8 @@ export const UserDashboard2 = () => {
     const [loading, setLoading] = useState(false);
 
     const { mutate: callNewRequest } = useNewUserRequest();
-    const { data } = useGetAllUserRequests();
+    const { data, refetch } = useGetAllUserRequests();
+    const { mutate: deleteRequest} = useDeleteRequest();
 
     const handleClose = ()=> setShow(false);
     const handleShow = () => setShow(true);
@@ -65,6 +67,29 @@ export const UserDashboard2 = () => {
         }
       };
 
+      const deleteUserRequest = async (userId) => {
+        try {
+            setLoading(true);
+    
+            await deleteRequest(userId, {
+                onSuccess: () => {
+                    toast.success('Succesfully deleted request');
+                    setLoading(false);
+                    refetch();
+                }, onError: (error) => {
+                    const errorMessage = error.response?.data?.message || 'An error occurred';
+                      toast.error(errorMessage);
+                      setLoading(false);
+                    }
+            });
+        } catch (error) {
+            const errorMessage = error.response?.data?.message || 'An unexpected error occurred';
+            toast.error(errorMessage);
+            setLoading(false);
+        }
+    }
+    
+
     return (
         <Container>
             <Nav variant="tabs" defaultActiveKey={0} activeKey={navKey}>
@@ -99,10 +124,16 @@ export const UserDashboard2 = () => {
                                     <td>{index + 1}</td>
                                     <td>{request.details}</td>
                                     
-                                    <div className="d-flex justify-content-center align-items-end">
+                                    <div className=" d-flex justify-content-center ">
+                                    
                                     <Button className="" variant="primary" onClick={ () => handleShowRequest(request)}>
                                         View
                                     </Button>
+                                    <Button className="bg-danger text-white ms-2" variant="red" onClick={ () => deleteUserRequest(request.id)}>
+                                        X
+                                    </Button>
+                                    </div>
+                                    
                                     <Offcanvas key={index}
                                         show={showRequest} 
                                         onHide={handleCloseRequest}
@@ -114,7 +145,7 @@ export const UserDashboard2 = () => {
                                             <div>{currentRequest?.details}</div>
                                         </Offcanvas.Body>
                                     </Offcanvas>
-                                </div>
+                                
                                 </tr>
                             ))}
                     
