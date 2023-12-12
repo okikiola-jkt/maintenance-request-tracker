@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 
-const NewRequestTable = async () => {
+const AllUsers = async () => {
     const requestEndpoint = process.env.REACT_APP_BACKEND_URL + '/admin/users';
     const response = await axios.get(requestEndpoint, 
      {
@@ -19,7 +19,7 @@ export const useAdminGetAllUsers = () => {
     return useQuery(
         {   
             queryKey: ["getallusers"],
-            queryFn: NewRequestTable
+            queryFn: AllUsers
         }
     )
 }
