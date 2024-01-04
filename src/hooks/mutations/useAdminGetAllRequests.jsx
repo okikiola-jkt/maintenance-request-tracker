@@ -5,6 +5,7 @@ import axios from "axios";
 const NewRequestTable = async () => {
     const requestEndpoint = process.env.REACT_APP_BACKEND_URL + '/admin/request';
     const response = await axios.get(requestEndpoint, 
+        
      {
             headers: {
                 Authorization: localStorage.getItem('adminToken')
