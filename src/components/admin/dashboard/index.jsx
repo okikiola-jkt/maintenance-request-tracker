@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Nav, Container } from "react-bootstrap";
 import { NewRequestTable  } from "../NewRequestTable";
 import { ApprovedRequestsTable } from "../ApprovedRequestsTable";
+import { InProgressRequests } from "../InProgressRequests";
+import { RejectedRequests } from "../RejectedRequests";
+import { PendingRequests } from "../PendingRequests";
 
 
 export const Dashboard = () => {
@@ -30,9 +33,9 @@ export const Dashboard = () => {
             </Nav>
 
             { navKey == 0 && <NewRequestTable /> }
-            { navKey == 1 && <p>pending content</p> }
-            { navKey == 2 && <p>in progress table content</p> }
-            { navKey == 3 && <p>rejected table content</p>}
+            { navKey == 1 && <PendingRequests />}
+            { navKey == 2 && <InProgressRequests /> }
+            { navKey == 3 && <RejectedRequests />}
             { navKey == 4 && <ApprovedRequestsTable />}
         </Container>
     );
