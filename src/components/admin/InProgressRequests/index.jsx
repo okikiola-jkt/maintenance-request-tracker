@@ -1,16 +1,26 @@
 import React, { useState } from "react";
 import { Table } from "react-bootstrap";
 import { useAdminGetAllRequests } from "../../../hooks/mutations/useAdminGetAllRequests";
-import Offcanvas from "react-bootstrap/Offcanvas";
-import Button from "react-bootstrap/Button";
+import { RequestRow } from "./RequestRow";
+import { useChangeRequestStatus } from "../../../hooks/mutations/useChangeRequestStatus";
+import toast from "react-hot-toast";
 
 
 export const InProgressRequests = () => {
   const [showRequest, setShowRequest] = useState(false);
   const [currentRequest, setCurrentRequest] = useState({});
+  const { mutate: changeStatus} = useChangeRequestStatus();
 
-
- 
+  const handleChangeRequest = (id, status) => {
+    changeStatus({ id, status }, {
+      onSuccess: () => {
+        toast.success('request updated Successful!');
+      },
+      onError: (error) => {
+        toast.error('Failed to update request.');
+      },
+    });
+  } 
 
   const handleCloseRequest = ()=> {
     setShowRequest(false);
@@ -33,30 +43,16 @@ export const InProgressRequests = () => {
       </thead>
       <tbody>
         {data?.data?.map((request, index) => (
-          <>
-          <tr>
-          <td>{index + 1}</td>
-          <td>{request.details}</td>
-
-          <div className="d-flex justify-content-center align-items-end">
-            <Button
-              className=""
-              variant="primary"
-              onClick={() => handleShowRequest(request)}
-            >
-              View
-            </Button>
-          </div>
-          <Offcanvas show={showRequest} onHide={handleCloseRequest}>
-            <Offcanvas.Header closeButton>
-              <Offcanvas.Title>Request</Offcanvas.Title>
-            </Offcanvas.Header>
-            <Offcanvas.Body>
-            <div>{currentRequest?.details}</div>
-            </Offcanvas.Body>
-          </Offcanvas>
-        </tr>
-      </>
+          <RequestRow
+            key={request.id}
+            request={request}
+            index={index}
+            showRequest={showRequest}
+            handleCloseRequest={handleCloseRequest}
+            handleShowRequest={handleShowRequest}
+            handleChangeRequest={handleChangeRequest}
+            currentRequest={currentRequest}
+          />
         ))}
       </tbody>
     </Table>

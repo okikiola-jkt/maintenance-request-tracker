@@ -5,7 +5,7 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import Button from "react-bootstrap/Button";
 
 
-export const ApprovedRequestsTable = () => {
+export const RequestsTable = ({ status }) => {
   const [showRequest, setShowRequest] = useState(false);
   const [currentRequest, setCurrentRequest] = useState({});
 
@@ -21,7 +21,7 @@ export const ApprovedRequestsTable = () => {
     setCurrentRequest(request)        
 }
 
-  const { data, refetch } = useAdminGetAllRequests("completed");
+  const { data, refetch } = useAdminGetAllRequests(status);
 
   return (
     <Table striped>

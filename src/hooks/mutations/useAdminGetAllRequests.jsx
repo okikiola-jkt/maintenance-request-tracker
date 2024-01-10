@@ -3,7 +3,6 @@ import axios from "axios";
 
 
 const getAllRequest = async (status) => {
-    console.log('>>>>> status', status, '<<<');
     const requestEndpoint = process.env.REACT_APP_BACKEND_URL + `/admin/request${status ? `?status=${status}` : ''}`;
     const response = await axios.get(requestEndpoint, 
         

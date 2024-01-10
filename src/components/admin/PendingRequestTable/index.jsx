@@ -31,7 +31,7 @@ export const NewRequestTable = () => {
     setShowRequest(true)      
     setCurrentRequest(request)        
 }
-  const { data, refetch } = useAdminGetAllRequests();
+  const { data, refetch } = useAdminGetAllRequests("pending");
 
   return (
     <Table striped>
