@@ -2,9 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 
-const NewRequestTable = async () => {
-    const requestEndpoint = process.env.REACT_APP_BACKEND_URL + '/admin/request';
+const getAllRequest = async (status) => {
+    const requestEndpoint = process.env.REACT_APP_BACKEND_URL + `/admin/request${status ? `?status=${status}` : ''}`;
     const response = await axios.get(requestEndpoint, 
+        
      {
             headers: {
                 Authorization: localStorage.getItem('adminToken')
@@ -15,11 +16,11 @@ const NewRequestTable = async () => {
     return await response.data
 }
 
-export const useAdminGetAllRequests = () => {
+export const useAdminGetAllRequests = (status) => {
     return useQuery(
         {   
-            queryKey: ["getallrequest"],
-            queryFn: NewRequestTable
+            queryKey: [`getallrequest-${status}`],
+            queryFn: () => getAllRequest(status)
         }
     )
 }

@@ -4,6 +4,7 @@ import { useAdminGetAllUsers } from "../../../hooks/mutations/useGetAllUsers";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
+import './index.css';
 
 export const Navbar = () => {
   const { data, refetch } = useAdminGetAllUsers();
@@ -22,18 +23,20 @@ export const Navbar = () => {
   let adminToken = localStorage.getItem("adminToken");
 
   return (
-    <BNavbar expand="lg" className="bg-body-tertiary">
+    <BNavbar expand="lg" className="adminNavbar">
       <Container>
-        <Row className="w-100">
+      <div className=" w-100 mt-4 mb-4">
+        <Row>
           <Col xs={6} className="align-items-center">
             <BNavbar.Brand href="#home">Maintenance Request</BNavbar.Brand>
           </Col>
-          <Col xs={3} className="d-flex justify-content-end align-items-center">
-            <Button className="me-2 mb-2" onClick={handleActiveUsersClick}>
+          {adminToken && (
+            <>
+            <Col xs={3} className="d-flex justify-content-end align-items-center">
+            <Button className="me-2" onClick={handleActiveUsersClick}>
               Active Users
             </Button>
           </Col>
-          {adminToken && (
             <Col
               xs={3}
               className="d-flex justify-content-end align-items-center"
@@ -47,8 +50,10 @@ export const Navbar = () => {
                 Log out
               </BNavbar.Brand>
             </Col>
+            </>
           )}
         </Row>
+        </div>
         <BNavbar.Toggle aria-controls="basic-navbar-nav" />
         <BNavbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto"></Nav>

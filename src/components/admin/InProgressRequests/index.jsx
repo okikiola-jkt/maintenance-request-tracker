@@ -1,27 +1,26 @@
 import React, { useState } from "react";
 import { Table } from "react-bootstrap";
 import { useAdminGetAllRequests } from "../../../hooks/mutations/useAdminGetAllRequests";
+import { RequestRow } from "./RequestRow";
 import { useChangeRequestStatus } from "../../../hooks/mutations/useChangeRequestStatus";
-import { RequestRow  } from "./RequestRow";
-import toast from 'react-hot-toast';
-import { useAdminGetAllUsers } from "../../../hooks/mutations/useGetAllUsers";
+import toast from "react-hot-toast";
 
 
-export const NewRequestTable = () => {
+export const InProgressRequests = () => {
   const [showRequest, setShowRequest] = useState(false);
   const [currentRequest, setCurrentRequest] = useState({});
   const { mutate: changeStatus} = useChangeRequestStatus();
- 
+
   const handleChangeRequest = (id, status) => {
-      changeStatus({ id, status }, {
-        onSuccess: () => {
-          toast.success('request updated Successful!');
-        },
-        onError: (error) => {
-          toast.error('Failed to update request.');
-        },
-      });
-    } 
+    changeStatus({ id, status }, {
+      onSuccess: () => {
+        toast.success('request updated Successful!');
+      },
+      onError: (error) => {
+        toast.error('Failed to update request.');
+      },
+    });
+  } 
 
   const handleCloseRequest = ()=> {
     setShowRequest(false);
@@ -31,7 +30,8 @@ export const NewRequestTable = () => {
     setShowRequest(true)      
     setCurrentRequest(request)        
 }
-  const { data, refetch } = useAdminGetAllRequests();
+
+  const { data, refetch } = useAdminGetAllRequests("in-progress");
 
   return (
     <Table striped>
